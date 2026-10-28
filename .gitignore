@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+/results/
+/build/
+/runs/
+/cache/
+/inputs/
+/nnunet*/
+/receipts/
+/overlap/
+/code/results/
+/paper/

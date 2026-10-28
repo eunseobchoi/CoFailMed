@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use CoFailMed code or artifacts, please cite the paper below."
+type: software
+title: CoFailMed
+authors:
+  - family-names: Choi
+    given-names: Eunseob
+    affiliation: Gwangju Institute of Science and Technology
+  - family-names: Kim
+    given-names: Kyeonghun
+    affiliation: OUTTA
+  - family-names: Lee
+    given-names: Hyuk-Jae
+    affiliation: Seoul National University
+  - family-names: Kim
+    given-names: Nam-Joon
+    affiliation: Seoul National University
+repository-code: "https://github.com/eunseobchoi/CoFailMed"
+license: Apache-2.0
+abstract: >-
+  CoFailMed measures shared failures in medical-segmentation pools using
+  aligned per-case Dice scores. The primary study evaluates 11 pretrained
+  encoders, 4 readout seeds and 5 tasks, with frozen features and separately
+  trained 1x1 convolutional readouts. The release contains the aligned
+  per-case Dice traces, split identifiers, analysis scripts with reference
+  outputs, and the study implementation.
+keywords:
+  - medical image segmentation
+  - foundation models
+  - model ensembles
+  - correlated failures
+  - effective pool size
+  - evaluation
+date-released: "2026-10-29"
+preferred-citation:
+  type: conference-paper
+  title: "Different Models, Shared Failures: Auditing Frozen-Encoder Pools for Medical Segmentation"
+  authors:
+    - family-names: Choi
+      given-names: Eunseob
+    - family-names: Kim
+      given-names: Kyeonghun
+    - family-names: Lee
+      given-names: Hyuk-Jae
+    - family-names: Kim
+      given-names: Nam-Joon
+  collection-title: Advances in Neural Information Processing Systems
+  conference:
+    name: "Conference on Neural Information Processing Systems (NeurIPS 2026)"
+  year: 2026
+  url: "https://openreview.net/forum?id=sgt45cOBtI"
+  notes: NeurIPS 2026 Evaluations and Datasets Track

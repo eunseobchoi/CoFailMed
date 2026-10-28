@@ -1,0 +1,2 @@
+-r requirements-repro.txt
+pandas>=2.0

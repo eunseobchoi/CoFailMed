@@ -1,0 +1,563 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "name": "CoFailMed",
+  "description": "Aligned per-case Dice scores for auditing shared failures in medical-segmentation model pools: 11 frozen pretrained encoders x 4 readout seeds x 5 tasks, with added checkpoints, held-out tasks, readout and adaptation controls, nnU-Net, mask-alignment, per-rater, content-group Kvasir, medical-encoder and AMOS22 extensions, pairwise error-mask overlaps, plus analysis reference outputs. No images, masks, predictions, features or weights are included.",
+  "url": "https://github.com/eunseobchoi/CoFailMed",
+  "sameAs": "https://openreview.net/forum?id=sgt45cOBtI",
+  "version": "1.0.0",
+  "datePublished": "2026-10-29",
+  "inLanguage": "en",
+  "isLiveDataset": false,
+  "license": "https://github.com/eunseobchoi/CoFailMed/blob/main/data/README.md#sources-and-terms",
+  "creator": [
+    {
+      "@type": "sc:Person",
+      "givenName": "Eunseob",
+      "familyName": "Choi",
+      "name": "Eunseob Choi",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Gwangju Institute of Science and Technology"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "givenName": "Kyeonghun",
+      "familyName": "Kim",
+      "name": "Kyeonghun Kim",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "OUTTA"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "givenName": "Hyuk-Jae",
+      "familyName": "Lee",
+      "name": "Hyuk-Jae Lee",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Seoul National University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "givenName": "Nam-Joon",
+      "familyName": "Kim",
+      "name": "Nam-Joon Kim",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Seoul National University"
+      }
+    }
+  ],
+  "citeAs": "@inproceedings{choi2026cofailmed, title = {{Different Models, Shared Failures: Auditing Frozen-Encoder Pools for Medical Segmentation}}, author = {Choi, Eunseob and Kim, Kyeonghun and Lee, Hyuk-Jae and Kim, Nam-Joon}, booktitle = {Advances in Neural Information Processing Systems}, year = {2026}, note = {NeurIPS 2026 Evaluations and Datasets Track}, url = {https://openreview.net/forum?id=sgt45cOBtI}}",
+  "keywords": [
+    "medical image segmentation",
+    "foundation models",
+    "model ensembles",
+    "correlated failures",
+    "effective pool size",
+    "evaluation"
+  ],
+  "prov:wasDerivedFrom": [
+    {
+      "@id": "https://datasets.simula.no/kvasir-seg/"
+    },
+    {
+      "@id": "https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html"
+    },
+    {
+      "@id": "https://www.synapse.org/Synapse:syn53708249"
+    },
+    {
+      "@id": "https://doi.org/10.5281/zenodo.6325549"
+    },
+    {
+      "@id": "https://doi.org/10.7302/Z23R0R29"
+    },
+    {
+      "@id": "https://challenge.isic-archive.com/data/"
+    },
+    {
+      "@id": "http://medicaldecathlon.com/"
+    },
+    {
+      "@id": "https://doi.org/10.5281/zenodo.7155725"
+    }
+  ],
+  "rai:dataCollection": "Derived from public medical-imaging datasets (Kvasir-SEG, ACDC, BraTS 2024 GLI, RIGA+, ISIC-2018, Medical Segmentation Decathlon, AMOS22): each released value is the Dice score of one trained model on one test case, computed by the study code.",
+  "rai:dataCollectionType": "Secondary data analysis",
+  "rai:dataPreprocessingProtocol": "Primary heads: frozen FP32 features, 224x224 inputs, 1x1 readouts, seeds 42-45, 30 epochs, batch 16; per-case Dice without smoothing. Scores are stored as float64 without rounding, filtering or reordering.",
+  "rai:dataAnnotationProtocol": "No new annotations. Ground truth comes from the upstream datasets; RIGA uses the 4-of-6 rater consensus and, for the per-rater panels, each rater mask.",
+  "rai:dataUseCases": "Recomputing the paper's case-level dependence statistics and reusing the protocol for evaluation research. Not for clinical decision-making, individual profiling or re-identification.",
+  "rai:dataLimitations": "Scores describe fixed public cohorts and the evaluated model pools; they are not validated for clinical deployment. Phikon-derived values and all images, masks, predictions, features and weights are excluded.",
+  "rai:dataBiases": "Inherits the sampling, site, scanner and annotation characteristics of the upstream datasets; no demographic or fairness analysis is performed.",
+  "rai:personalSensitiveInformation": "Contains upstream case identifiers needed for alignment and resampling, and no demographic or clinical attributes. Some upstream file names carry source-group labels; identifiers do not guarantee anonymity.",
+  "rai:dataSocialImpact": "Makes dependence assumptions in medical-segmentation model pools auditable; a pool should not be considered clinically safe on this evidence alone.",
+  "rai:dataReleaseMaintenancePlan": "Files are fixed to the paper version and verified by MANIFEST.sha256; errors are reported through GitHub issues.",
+  "rai:hasSyntheticData": false,
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "data/controls.npz",
+      "name": "data/controls.npz",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/data/controls.npz",
+      "encodingFormat": "application/x-npz",
+      "sha256": "603f05bd2dc9598c4306aaa97dc77264bf95f5f4a714dc0a8881f0c0daf46536",
+      "description": "UNet-skip, fine-tuning, random-initialisation and nnU-Net per-case Dice panels."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "data/extensions.npz",
+      "name": "data/extensions.npz",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/data/extensions.npz",
+      "encodingFormat": "application/x-npz",
+      "sha256": "ff860def1d9d6a3b675453821eb194f6bacc32c56097b80af7b7696a1eabcf95",
+      "description": "Mask-alignment, per-rater RIGA, content-group Kvasir, medical-encoder (RETFound, RAD-DINO, BiomedParse), AMOS22 and held-out MSD Spleen/Heart per-case Dice panels."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "data/metadata.json",
+      "name": "data/metadata.json",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/data/metadata.json",
+      "encodingFormat": "application/json",
+      "sha256": "2ceefa12f7c4e52f62d45c1964f8b06dc1afbf3af690ec2921a20b3e524662f2",
+      "description": "Schema, protocol and one entry per panel of the four packs."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "data/pixel_overlap.npz",
+      "name": "data/pixel_overlap.npz",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/data/pixel_overlap.npz",
+      "encodingFormat": "application/x-npz",
+      "sha256": "1ef3516b690b0bd0ee2951579bf83dcdf65ab1a5369b98c3c3be73637a09a7aa",
+      "description": "Per-case error-mask overlap (Dice) of every pair of floor-retained heads; NaN marks two empty masks. No masks or pixel content."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "data/scores.npz",
+      "name": "data/scores.npz",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/data/scores.npz",
+      "encodingFormat": "application/x-npz",
+      "sha256": "aadbcdbd2bfd670863915e05e0afa2e4aedc8bfc065fa685f3b183125de87f33",
+      "description": "Primary, added-checkpoint and held-out per-case Dice panels."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "data/splits.json.gz",
+      "name": "data/splits.json.gz",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/data/splits.json.gz",
+      "encodingFormat": "application/gzip",
+      "sha256": "cfd921b38fbbc1655b327fdcc5f6e23f24d5408be2b8c9afc5da304148260934",
+      "description": "Train/test identifier lists of the committed split files."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/amos.csv",
+      "name": "reference_results/amos.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/amos.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "a8ff860a68503bef2ac0dcd8908261f875f2b8b5c5c3e35d23ddc30443132afc",
+      "description": "Reference output of the documented command for amos.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/bundle_dice.csv",
+      "name": "reference_results/bundle_dice.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/bundle_dice.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "4d1aea1526192cb60e88e62e6b4ef64cd6db75a8ac8908c825619682629d8c5f",
+      "description": "Reference output of the documented command for bundle_dice.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/calibration.csv",
+      "name": "reference_results/calibration.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/calibration.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "caa26fabb4b0625ae0509156edfc72d41b7eff5b8d3fa606ad9b510f5590fbcc",
+      "description": "Reference output of the documented command for calibration.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/checkpoints.csv",
+      "name": "reference_results/checkpoints.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/checkpoints.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "7159bd7d8304d15314e42ccf68e72235f6722218ec146f166376715aa22ba6d7",
+      "description": "Reference output of the documented command for checkpoints.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/control_comparisons.csv",
+      "name": "reference_results/control_comparisons.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/control_comparisons.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "aad7b79fb3da5c1681b3b96d1bc12ac0370ec3e036f47c11e40991d0263a114e",
+      "description": "Reference output of the documented command for control_comparisons.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/control_intervals.csv",
+      "name": "reference_results/control_intervals.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/control_intervals.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "66296d4293ffee523fb1afe9e83a69a814ea55ab6094a0593ace1d116c242ca7",
+      "description": "Reference output of the documented command for control_intervals.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/correlations.csv",
+      "name": "reference_results/correlations.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/correlations.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "319b61b21ad4c1c6b1cd29977cdb71d7c61b5ffbbf3757623c49d4d207fded83",
+      "description": "Reference output of the documented command for correlations.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/effective_size.csv",
+      "name": "reference_results/effective_size.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/effective_size.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "be15a473a66f57d75a5a60941160d63cc7befaeb2bab78b61aa9644402bea4dc",
+      "description": "Reference output of the documented command for effective_size.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/failure_intervals.csv",
+      "name": "reference_results/failure_intervals.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/failure_intervals.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "47b2167bc375a695a66c8fd6d645be9c418b0403ee9c4c44bc4856e06ba695dc",
+      "description": "Reference output of the documented command for failure_intervals.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/failure_metrics.csv",
+      "name": "reference_results/failure_metrics.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/failure_metrics.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "8cc05756a5fe9005741adc24bbdbba2109200a768723e191f165f65c98be9c3b",
+      "description": "Reference output of the documented command for failure_metrics.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/fixed_threshold.csv",
+      "name": "reference_results/fixed_threshold.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/fixed_threshold.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "7782b896e533fccc2d118621aa1b5f2cdb752a8603e69d68666c7dbda0328235",
+      "description": "Reference output of the documented command for fixed_threshold.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/heldout.csv",
+      "name": "reference_results/heldout.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/heldout.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "d2f2ff5f890ff297ad20ca7d9b1ef051776e1c09ad7419930d509023179824b6",
+      "description": "Reference output of the documented command for heldout.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/hierarchy.csv",
+      "name": "reference_results/hierarchy.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/hierarchy.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "d32f4909d06c1079935a6b779be552d45e62f661909b879ac47392d9c778873d",
+      "description": "Reference output of the documented command for hierarchy.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/item_difficulty.csv",
+      "name": "reference_results/item_difficulty.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/item_difficulty.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "b64e092a99853dccd62f52902e719b246599554f2550dda2e812c37ca50f0255",
+      "description": "Reference output of the documented command for item_difficulty.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/kvasir_grouped.csv",
+      "name": "reference_results/kvasir_grouped.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/kvasir_grouped.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "8b092703b8f5fa4bf0ebac779c513caaa1cf2c49b45ba500f47e8784349e5e5b",
+      "description": "Reference output of the documented command for kvasir_grouped.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/mask_align.csv",
+      "name": "reference_results/mask_align.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/mask_align.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "26639cb1c19bdb6d8c65835188858024a2ce19b35c4be4ae8f727ca23b5f363a",
+      "description": "Reference output of the documented command for mask_align.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/medical_encoders.csv",
+      "name": "reference_results/medical_encoders.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/medical_encoders.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "178fb44b3c52c7ca6e43e1f889ff8348b03b732085aa95d0928bdb26821fd8b3",
+      "description": "Reference output of the documented command for medical_encoders.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/per_rater.csv",
+      "name": "reference_results/per_rater.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/per_rater.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "1d406e8f2667155a0d8210d752b929315530e0d714f7fc1bf034cfb0fd501e3b",
+      "description": "Reference output of the documented command for per_rater.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/pipeline_metrics.csv",
+      "name": "reference_results/pipeline_metrics.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/pipeline_metrics.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "62247279b221dca69ad1557d192b63778a6aa9c280f8856c4a72d78e001690f2",
+      "description": "Reference output of the documented command for pipeline_metrics.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/pixel_overlap.csv",
+      "name": "reference_results/pixel_overlap.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/pixel_overlap.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "1cae8f0148cf08e8410b86a5dea7c31f597b70bca8777256d73036eabe739f32",
+      "description": "Reference output of the documented command for pixel_overlap.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/pool_selection.csv",
+      "name": "reference_results/pool_selection.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/pool_selection.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "cf19c5f05085876dfef559955f2bb075adcf4821d4c8b28b9c1e8ca57cd59112",
+      "description": "Reference output of the documented command for pool_selection.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/primary_case_intervals.csv",
+      "name": "reference_results/primary_case_intervals.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/primary_case_intervals.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "1eff7be0b03b37116d795070ed9bf49012c8e4b9a0e68e75d3c86eb71153f8bb",
+      "description": "Reference output of the documented command for primary_case_intervals.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/primary_intervals.csv",
+      "name": "reference_results/primary_intervals.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/primary_intervals.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "b0992136f981e44e52f3aef68f3127a0610f8c4cf0d12e2947acc9054f5f4fad",
+      "description": "Reference output of the documented command for primary_intervals.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/sensitivity.csv",
+      "name": "reference_results/sensitivity.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/sensitivity.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "b1d1cceef21d0daff702a0b5d6bc80c585c835aa02ffb0f1a410e5b0723cb90c",
+      "description": "Reference output of the documented command for sensitivity.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/tau_sweep.csv",
+      "name": "reference_results/tau_sweep.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/tau_sweep.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "f0d051e5fd7f6c0654ef76a0c35d09124b9ddc72ae92c6eaabb5143ee5aeb430",
+      "description": "Reference output of the documented command for tau_sweep.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/unet_nine.csv",
+      "name": "reference_results/unet_nine.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/unet_nine.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "c0da6c2fedd6d3d7dc4644a2912f73b46c58deca93eb96a2dc7587ce484ca70b",
+      "description": "Reference output of the documented command for unet_nine.csv."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "reference_results/vit_diagnostic.csv",
+      "name": "reference_results/vit_diagnostic.csv",
+      "contentUrl": "https://raw.githubusercontent.com/eunseobchoi/CoFailMed/main/reference_results/vit_diagnostic.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "d3b05aee540aecfc468a1163ec639ea6cb0cdb3af126617b66ae488f8fc67616",
+      "description": "Reference output of the documented command for vit_diagnostic.csv."
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "panels",
+      "name": "panels",
+      "description": "One record per released score panel (data/metadata.json).",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "panels/key",
+          "name": "key",
+          "description": "Panel name; NPZ keys are <key>/<field>.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].key"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "panels/pack",
+          "name": "pack",
+          "description": "Score pack holding the panel.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].pack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "panels/task",
+          "name": "task",
+          "description": "Task identifier.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].task"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "panels/n_traces",
+          "name": "n_traces",
+          "description": "Rows of the panel (trained heads, folds, models or head pairs).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].n_traces"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "panels/n_cases",
+          "name": "n_cases",
+          "description": "Test cases (columns).",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].n_cases"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "panels/resampling_unit",
+          "name": "resampling_unit",
+          "description": "Independent unit used for bootstrap resampling.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].resampling_unit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "panels/n_score_values",
+          "name": "n_score_values",
+          "description": "Number of per-case values in the panel's score arrays.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "data/metadata.json"
+            },
+            "extract": {
+              "jsonPath": "$.panels[*].n_score_values"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

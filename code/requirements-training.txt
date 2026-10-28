@@ -1,0 +1,11 @@
+-r requirements-repro.txt
+pillow>=10
+pyyaml>=6
+nibabel>=5
+torch>=2.4  # torch.serialization.add_safe_globals
+torchvision>=0.19
+timm>=0.9
+open_clip_torch==3.3.0
+huggingface_hub>=0.23
+safetensors>=0.4
+transformers==4.49.0

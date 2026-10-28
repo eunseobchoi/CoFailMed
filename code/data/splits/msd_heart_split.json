@@ -1,0 +1,29 @@
+{
+  "task": "msd_heart",
+  "provenance": "MSD task 'msd_heart' central-axial-slice 80/20 volume-level split via numpy.random.default_rng(42) over the volume ID list. Task02_Heart (20 imagesTr cardiac MRI). Binary foreground = (label > 0).",
+  "train": [
+    "la_003",
+    "la_004",
+    "la_005",
+    "la_007",
+    "la_009",
+    "la_010",
+    "la_011",
+    "la_016",
+    "la_018",
+    "la_019",
+    "la_020",
+    "la_021",
+    "la_024",
+    "la_026",
+    "la_029",
+    "la_030"
+  ],
+  "val": [],
+  "test": [
+    "la_014",
+    "la_017",
+    "la_022",
+    "la_023"
+  ]
+}

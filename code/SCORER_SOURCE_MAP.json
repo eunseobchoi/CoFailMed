@@ -1,0 +1,329 @@
+[
+  {
+    "source": "original/amos/aggregate.py",
+    "destination": "code/stats/amos/aggregate.py",
+    "source_sha256": "d4f06d7da0364d765508b3f1c0ef688f560270aa441ff03beb1bbdf946b6fc07",
+    "destination_sha256": "a6ab0e9553df6c3ff99b029bdcaa3252e86ce7d3aded4b6d02064e83aa06418f",
+    "retained_definitions": [
+      "EVALUATOR",
+      "BOOTSTRAP_B",
+      "PEARSON_SEED",
+      "PHASE2_SEED",
+      "SYSTEMS",
+      "COMMON",
+      "ORGANS",
+      "SAME",
+      "CROSS0",
+      "CROSS1",
+      "CROSS",
+      "GAP",
+      "sha256",
+      "dump_json",
+      "percentile",
+      "pearson",
+      "correlations",
+      "pearson_bootstrap",
+      "phase2_summaries",
+      "validate_nifti",
+      "merge_organ_masks",
+      "shared_missingness_macros",
+      "finalize_organ_frames",
+      "run_evaluator",
+      "aggregate_metrics"
+    ]
+  },
+  {
+    "source": "original/amos/analysis/__init__.py",
+    "destination": "code/stats/amos/analysis/__init__.py",
+    "source_sha256": "f835f115890455d566add43d0da13054cf967e0daa6ba9586cb644eae9d39a32",
+    "destination_sha256": "553b8155bf923a6a643d159a053c0a089adc06bb73da5d879bb5b78d83c9f5d6"
+  },
+  {
+    "source": "original/amos/analysis/common.py",
+    "destination": "code/stats/amos/analysis/common.py",
+    "source_sha256": "f4f16171b0239b0d6f05eae07b3edaf1c3077921223755f1eaaf82cc21fa6a13",
+    "destination_sha256": "1e966346fb395fd6bba671c76121be9fab09e45cbd8f5cea381e711def4584f4",
+    "retained_definitions": [
+      "FUNCTIONAL_FLOOR"
+    ]
+  },
+  {
+    "source": "original/amos/analysis/e1_meff_configs.py",
+    "destination": "code/stats/amos/analysis/effective_size.py",
+    "source_sha256": "f3fd6ca329fe5b153d2ffa092805e478f143f8a076ade7e08d0e4e6b217ca9f8",
+    "destination_sha256": "9a9ab8250533d205a3f6e794d3c57fb4dc48138fdb6691e8a6dc5d0d7384ed2c",
+    "statistical_output_scope": "estimates, intervals, threshold selection and support",
+    "retained_definitions": [
+      "FIXED_THRESHOLDS",
+      "MIN_FAILURES",
+      "MIN_PASSES",
+      "UNDEFINED_REASON",
+      "TraceCollection",
+      "PoolSpec",
+      "threshold_union",
+      "member_support",
+      "_pool_spec_fixed",
+      "_pool_spec_diverse4",
+      "_correlation_matrix",
+      "pool_summary",
+      "_resample_indices",
+      "bootstrap_pool_rows",
+      "_threshold_record",
+      "analyze_pool"
+    ]
+  },
+  {
+    "source": "original/amos/analysis/e4_nonpearson_configs.py",
+    "destination": "code/stats/amos/analysis/failure_comparison.py",
+    "source_sha256": "e2b60ad9dade9b8c093798cc62862e479e019f6adbedbfe47c53464757375086",
+    "destination_sha256": "4fd592f27697a7cebd550e59352e368b3d1d83a62879ee13102a83cfa92585a6",
+    "retained_definitions": [
+      "METRICS",
+      "UNDEFINED_REASON",
+      "_pair_arrays",
+      "amos_pair_masks",
+      "_support",
+      "_floor_gate",
+      "_stratum",
+      "metric_points",
+      "_ci",
+      "bootstrap_metrics"
+    ]
+  },
+  {
+    "source": "original/amos/analysis/l1a_metrics.py",
+    "destination": "code/stats/amos/analysis/failure_metrics.py",
+    "source_sha256": "5308a20ec266c08cddf3837f1d6cc2929e7d65bb14e430678b689235cab382d1",
+    "destination_sha256": "9f67536b22aa0f8eb3e362b646537b9874e3ee6a99ec333a5a70b15bf4132607",
+    "retained_definitions": [
+      "DIRECTIONS",
+      "_metric_matrices"
+    ]
+  },
+  {
+    "source": "original/amos/evaluate_masks.py",
+    "destination": "code/stats/amos/evaluate_masks.py",
+    "source_sha256": "42b2bdf145b430515c13d402031d941fcc92313c067c6c8262a30a3aade15173",
+    "destination_sha256": "00c010515efa5471b9a2ed3e9af0fbd1dfd9dc89e9d51dac961b0d3a2b92c1bc"
+  },
+  {
+    "source": "original/amos/finalize_organs.py",
+    "destination": "code/stats/amos/finalize_organs.py",
+    "source_sha256": "ca5fe0aa5dc1c0b6e91bd0bcef091f2008f7c2375d6cf819c5773f2570168368",
+    "destination_sha256": "3c10b45a5776d2cd6653c6fcc00ad5595e3cdf28ba467ea17a053677bf6b78d6"
+  },
+  {
+    "source": "original/amos/test_evaluator_inputs.py",
+    "destination": "code/stats/amos/test_evaluator_inputs.py",
+    "source_sha256": "b8d567c48645cbdd03a6dadaf44e639bea36f021ad56f249acf197fcf7ac6a38",
+    "destination_sha256": "b8d567c48645cbdd03a6dadaf44e639bea36f021ad56f249acf197fcf7ac6a38"
+  },
+  {
+    "source": "original/amos/test_finalize_organs.py",
+    "destination": "code/stats/amos/test_finalize_organs.py",
+    "source_sha256": "dbd0476d757360f5d7c604d710a227c1996b86da5265110ccc6aa4ebbe126f9f",
+    "destination_sha256": "dbd0476d757360f5d7c604d710a227c1996b86da5265110ccc6aa4ebbe126f9f"
+  },
+  {
+    "source": "original/replay_amos.py",
+    "destination": "code/stats/recompute_amos.py",
+    "source_sha256": "628291be31cc19df92e7bcbab6ceb57003624d03ddbeed08dab7f69159fe0638",
+    "destination_sha256": "af848b032a61b7a31a7b28f78ee1542a303a8fcaefad4ab59548ccd89af63567"
+  },
+  {
+    "source": "original/analysis/__init__.py",
+    "destination": "code/stats/controls/analysis/__init__.py",
+    "source_sha256": "8703ac03c30fb9c741fe2ea939b301573b6bebacdb6f1aeadade0fe6dee3c2cb",
+    "destination_sha256": "0e1577ae06be1937954cc3326f928bf13a2dd23d972b1f22f54e07ef14370358"
+  },
+  {
+    "source": "original/analysis/e1_meff_configs.py",
+    "destination": "code/stats/controls/analysis/effective_size.py",
+    "source_sha256": "99181bf72d574864d69c9e19fd931ae12d3542029bb307d2d7796fbcbd684817",
+    "destination_sha256": "676f5f1b7809db8227da53bc2b2a1f587a199d8722b92c9889ab2c120f76e2b3",
+    "retained_definitions": [
+      "FIXED_THRESHOLDS",
+      "MIN_FAILURES",
+      "MIN_PASSES",
+      "UNDEFINED_REASON",
+      "TraceCollection",
+      "PoolSpec",
+      "_read_json",
+      "_trace_values",
+      "_load_trace_paths",
+      "threshold_union",
+      "member_support",
+      "_pool_spec_diverse4",
+      "_correlation_matrix",
+      "pool_summary",
+      "_resample_indices",
+      "bootstrap_pool_rows",
+      "_threshold_record"
+    ]
+  },
+  {
+    "source": "original/analysis/e4_nonpearson_configs.py",
+    "destination": "code/stats/controls/analysis/failure_comparison.py",
+    "source_sha256": "f113e35f393953c1c585ee6ee37c64b7ae7db9044998f6fab7a2dcc1fa70f425",
+    "destination_sha256": "bdfd638995e763631a89128313fe8da8d977a764ef1317a271ec53426e355fc7",
+    "retained_definitions": [
+      "METRICS",
+      "DEPENDENCE_DIRECTION",
+      "UNDEFINED_REASON",
+      "_pair_arrays",
+      "nnunet_pair_masks",
+      "_pearson_point",
+      "_support",
+      "_floor_gate",
+      "_stratum",
+      "metric_points",
+      "_ci",
+      "bootstrap_metrics",
+      "classify_order"
+    ]
+  },
+  {
+    "source": "original/analysis/l1a_metrics.py",
+    "destination": "code/stats/controls/analysis/failure_metrics.py",
+    "source_sha256": "bf6c3dc83006d98d7094fb9810df150472a3f272ab769af3827dabfb548fdda3",
+    "destination_sha256": "3b269fa621c950f21897f2b28a48ba9154af26ca8892836ecccf705d5eadce55",
+    "retained_definitions": [
+      "DIRECTIONS",
+      "KAPPA_NEVER_FAIL",
+      "_check_kappa_never_fail",
+      "_binary_inputs",
+      "_counts",
+      "cohen_kappa",
+      "q_statistic",
+      "disagreement_rate",
+      "double_fault_rate",
+      "_same_mask",
+      "_metric_matrices"
+    ]
+  },
+  {
+    "source": "original/analysis/l2unet_decoder_matched.py",
+    "destination": "code/stats/controls/analysis/decoder_pairs.py",
+    "source_sha256": "1962d64291a5260a5cc960204a8276ace7008b50f19e4843c3083635deb1df6e",
+    "destination_sha256": "4e50bb6af25093d5f1c20ad0c61048744ae0101f16500bda4392497872f62f71",
+    "retained_definitions": [
+      "_pair_masks"
+    ]
+  },
+  {
+    "source": "original/analysis/gate0.py",
+    "destination": "code/stats/controls/analysis/trace_validation.py",
+    "source_sha256": "9a333ab45ac72704831d978cb05a49190901cc25cf53694a5c108d19d7797a6e",
+    "destination_sha256": "b9cde87c2fc06d216e41cbdbdabb1b272b5a4c0e65d78202dbd4e6e19919d0d9",
+    "retained_definitions": [
+      "DINOV2_PAIR",
+      "Trace",
+      "_validate_trace",
+      "load_trace",
+      "apply_bundle_floor"
+    ]
+  },
+  {
+    "source": "original/analysis/common.py",
+    "destination": "code/stats/controls/analysis/common.py",
+    "source_sha256": "c80cb65ab0b90f94817f5a16f7053d11431355c0e3ee13716ce13031bdd20f62",
+    "destination_sha256": "1df3f257552e99f6f7daf9cdf05eca186f002b210fd78f1b6e74bdba12af4aa9",
+    "retained_definitions": [
+      "FUNCTIONAL_FLOOR",
+      "subject_ids"
+    ]
+  },
+  {
+    "source": "original/controls/compute_controls.py",
+    "destination": "code/stats/controls/compute_controls.py",
+    "source_sha256": "dd7cf5e1d78fa48bb36faa9daed532d1a4a61cc53f5020705488866eecf68282",
+    "destination_sha256": "65a6c12f21ab408ffa0def05c0a0f4d332a453461c699a89eb5d12a095dd7906"
+  },
+  {
+    "source": "original/recompute_controls.py",
+    "destination": "code/stats/recompute_controls.py",
+    "source_sha256": "2787f533202a051137ee280ef1ed33c8657c23b573ee37c75bd4d53b537b746f",
+    "destination_sha256": "95b7a9f892a5a81186b49f86f21ac3416736d91a6876da3feaeae3c671653218"
+  },
+  {
+    "source": "original/numbers/build_numbers.py",
+    "destination": "code/table_generation/build_numbers.py",
+    "source_sha256": "d89891feab91c6d6cfdb450b3f62497c9da4bf85993b6e7141ba2f45de7fb5b1",
+    "destination_sha256": "4ea67f7ce5ac9e3e9bb0d060ef4cfa08a2370ed757be2fe4b2a9187f3be0c8b1",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/build_camera_ready_numbers.py",
+    "derived_from_sha256": "8ed3c7fea0c3e77c86088624faa85570636155b95fb3a360b46fc29d6a6c2224",
+    "notes": "Release edit: f_perm reads null_p_ge_observed (upper tail, as defined in Appendix D.4) instead of the study file's null_p_abs_ge_observed (two-sided); both give 0.001 on the study outputs."
+  },
+  {
+    "source": "original/numbers/consolidated_numbers.py",
+    "destination": "code/table_generation/consolidated_numbers.py",
+    "source_sha256": "f2e39f62584184c9583f05e90194976c15139df1a238d42044b6006a0c77be02",
+    "destination_sha256": "bc39ff1de3f2f11f801e1438b723858c5f5012bc0da46159a8c735165d3ba7cf",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/consolidated_numbers.py",
+    "derived_from_sha256": "c56d7fce4a43763f66616a0835dd912bdbd909461d92b8100f09a4c7f023aaa5"
+  },
+  {
+    "source": "original/numbers/gpu_hours_numbers.py",
+    "destination": "code/table_generation/gpu_hours_numbers.py",
+    "source_sha256": "1959dd0fc1b33bbfd444eb40bd308a94e146680618820b613a9a2a48d13cb4a0",
+    "destination_sha256": "7484429344f519509768ed6a4363fdfa754e6f9c521ea5d21962716360ad5be4",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/gpu_hours_numbers.py",
+    "derived_from_sha256": "edf1bde3c0be75cd284591a4e5f2ad311aa7baa9e34905e473a41e078a444fe0"
+  },
+  {
+    "source": "original/numbers/heldout_numbers.py",
+    "destination": "code/table_generation/heldout_numbers.py",
+    "source_sha256": "a0fe7bbe96471619dac3c6640a02e3def15dd647d13a0331894ad0d7903aea86",
+    "destination_sha256": "1d409197330be2328fd03039ee75f5f320b0567de60d4de144ab543854b7c8ca",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/heldout_numbers.py",
+    "derived_from_sha256": "01eeb44e427db0e09a49be75854c873572018b8de863288dcbc8fca7a39f0f32"
+  },
+  {
+    "source": "original/numbers/kvasir_official_numbers.py",
+    "destination": "code/table_generation/kvasir_official_numbers.py",
+    "source_sha256": "77f523ec651bcd465c2e0e95a8cdab41f391a044444afc19fa35dfcdb1dee4c4",
+    "destination_sha256": "4e125b26d97ef70f807db7bc9d16a2749203d3e1bc3bfcdbed4ffbcad1168311",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/kvasir_official_numbers.py",
+    "derived_from_sha256": "64f38b5fa3697bc463b49d0b24b602e019165674b1c6cf47b51a9d79f3bfb3a1"
+  },
+  {
+    "source": "original/numbers/make_verification_macros.py",
+    "destination": "code/table_generation/make_verification_macros.py",
+    "source_sha256": "27c1ab2e914e0e6e96ef9276febf1f6f9d3c997edba4af0f826cedf1358028c8",
+    "destination_sha256": "637538d422faba2ed97b5e0f9cdad8cd3316b1bcd740afcf3c6057d1dbdfb9b2",
+    "source_kind": "table_generation",
+    "derived_from": "original/paper/make_verification_macros.py",
+    "derived_from_sha256": "b2f504a98173adaf6595bb529fdaefe6caacc773619b539453302cc624f2ec15"
+  },
+  {
+    "source": "original/numbers/mask_align_numbers.py",
+    "destination": "code/table_generation/mask_align_numbers.py",
+    "source_sha256": "fd467f9e8223e46380777a70177619d3040e3893a9dabfef7f94e4166d83b194",
+    "destination_sha256": "567bda5b75a935c3855ea0bb498483b40a7c6ee2c2f361d66db9ef3763fb02d2",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/mask_align_numbers.py",
+    "derived_from_sha256": "bb418fee47b9b4e8055b220f210427c7518bdb3eddb88ece1732ca01e192b56f",
+    "notes": "Release edit: docstring states that the SUMMARY/MASK_OFFSET producer scripts are not released and names the summary keys."
+  },
+  {
+    "source": "original/numbers/scope_numbers.py",
+    "destination": "code/table_generation/scope_numbers.py",
+    "source_sha256": "368781e6d62431eff797f9ab273334a29e171b0fe0520615f5e6d5b9c788e053",
+    "destination_sha256": "2efdde449cd4804afcd8cab6721c4619d8e6fbf9134ad67be3a7ba7dbd8a32da",
+    "source_kind": "table_generation",
+    "derived_from": "original/scripts/scope_numbers.py",
+    "derived_from_sha256": "a4fb6718a6456146b5730799c94fccff5e134d935031f6263d7aea22ed354e43"
+  },
+  {
+    "source": "original/paper/make_primary_quality_table.py",
+    "destination": "code/table_generation/make_primary_quality_table.py",
+    "source_sha256": "b7fe88a92342b978363f19a1ad7088ce4fc60cea408ce3259e38d847c6732a2e",
+    "destination_sha256": "46fe3dd137c7560c3c1ccda3cfb998cde596cda143846413c07cb9862972ceff",
+    "source_kind": "table_generation"
+  }
+]

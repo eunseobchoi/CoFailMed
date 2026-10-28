@@ -1,0 +1,1095 @@
+{
+  "format": "cofailmed_scalar_pack",
+  "source_repository": "https://github.com/eunseobchoi/CoFailMed",
+  "source_code": "code/ (study implementation that produced the traces)",
+  "score_definition": "Per-case Dice as released; float64; no rounding, filtering, aggregation or reordering.",
+  "array_schema": {
+    "<panel>/dice": "float64 [trace, case]",
+    "<panel>/case_ids": "Unicode [case], exact source test_ids shared by every trace in this panel",
+    "<panel>/cluster_ids": "Unicode [case], derived resampling labels; not an assertion of patient independence",
+    "<panel>/bundle": "Unicode [trace], exact source fm; nnU-Net folds remain separate in fold",
+    "<panel>/seed": "int64 [trace], original training seed",
+    "<panel>/upstream_family": "Unicode [trace], upstream encoder family; OpenAI CLIP is openai_clip",
+    "<panel>/selection_family": "Unicode [trace], family-selection labels; OpenAI CLIP is clip",
+    "<panel>/fold": "int64 [trace], only nnU-Net; use fold for same/cross-fold pair groups",
+    "<panel>/scored_export_ids": "Unicode [case], only when supplied; original IDs of scored nnU-Net exports",
+    "<panel>/case_split_ids": "Unicode [case], only when supplied",
+    "<panel>/organ_dice": "float64 [model, case, organ], only AMOS; NaN where the reference organ is empty and Dice is undefined",
+    "<panel>/organs": "Unicode [organ], only AMOS; the 13 organs common to all three models",
+    "<panel>/model": "Unicode [model], only AMOS; MRSegmentator fold 0, fold 1, then TotalSegmentator",
+    "<panel>/system": "Unicode [model], only AMOS; system of each model (the two folds share one)",
+    "<panel>/target_empty": "bool [case], only heldout/msd_spleen; reference mask has no foreground",
+    "<panel>/prediction_empty": "bool [trace, case], only heldout/msd_spleen; prediction has no foreground",
+    "<panel>/err_dice": "pixel_overlap only: [pair, case] Dice between the two heads' error masks (prediction XOR ground truth, 224x224); NaN when both masks are empty",
+    "<panel>/fp_dice": "pixel_overlap only: as err_dice for false-positive pixels (error and not ground truth)",
+    "<panel>/fn_dice": "pixel_overlap only: as err_dice for false-negative pixels (error and ground truth)",
+    "<panel>/pair_a": "pixel_overlap only: int64 [pair], index of the first head in bundle/seed",
+    "<panel>/pair_b": "pixel_overlap only: int64 [pair], index of the second head in bundle/seed (pair_a < pair_b)"
+  },
+  "loading": "numpy.load(path, allow_pickle=False); NPZ keys use panel/field. No object arrays.",
+  "panel_construction": {
+    "expanded17": "For each primary task, concatenate primary/<task> and cross_checkpoint/<task> rows; case_ids must agree. 68 rows, 17 bundles, seeds 42-45.",
+    "family_selection7": "primary/<task> for five primary tasks; heldout/isic2018 and heldout/msd_hippocampus; all 44 traces before calibration-only filtering.",
+    "nnunet_riga_alignment": "Original hashed test_ids are retained. scored_export_ids equal primary RIGA case_ids with / replaced by __, in the same order.",
+    "amos_case_score": "AMOS dice is the mean of the finite organ_dice values of each case (recorded study values; equal to numpy.nanmean within 1e-12).",
+    "kvasir_grouped_expanded17": "Concatenate kvasir_grouped/primary and kvasir_grouped/cross_checkpoint rows, as for expanded17.",
+    "mask_align": "mask_align/<task> retrains the primary 1x1 heads with nearest-exact mask resizing; members and case columns equal primary/<task>.",
+    "medical": "medical/<task> holds RETFound, RAD-DINO and BiomedParse heads on the primary/<task> cases; Phikon heads are not released.",
+    "per_rater": "per_rater/rater_<k>/<task> scores the primary RIGA heads against rater k; the consensus rows of Table C.2 are primary/<task> (identical predictions, 4-of-6 consensus reference).",
+    "heldout_msd_empty_masks": "heldout/msd_spleen also stores target_empty [case] and prediction_empty [member, case], the recorded empty-mask flags of its 224x224 central slices; no masks or predictions are included.",
+    "pixel_overlap": "pixel_overlap/<task> holds every pair of the floor-retained heads of primary/<task> (kvasir_grouped: kvasir_grouped/primary); values derived from the stored error and ground-truth masks, which are not released. Stored as float32, the precision in which the study computed them."
+  },
+  "protocol": {
+    "functional_floor": 0.3,
+    "primary_within_release_pairs": [
+      [
+        "dinov2_vitb14",
+        "dinov2_vits14"
+      ]
+    ],
+    "primary_within_rule": "same bundle across seeds plus all DINOv2-B/S pairs; other pairs are cross-bundle",
+    "expanded_pair_rule": "same bundle; distinct bundles with equal upstream_family; different upstream_family",
+    "failure_event": "dice < threshold; ties pass",
+    "primary_p33": "pooled model-case percentile after per-bundle mean-Dice floor",
+    "effective_size": "mean of pool-specific M/[1+(M-1)*mean failure correlation], one head from each of four distinct bundles",
+    "support": "at least five failures and five passes for every member; finite correlations and positive denominator",
+    "family_selection": "200 splits with seeds 0..199; 50% of sorted resampling units; calibration-only floor; best head per selection_family, top four; candidate-ID tie break",
+    "family_selection_threshold": "P33 of the calibration-best functional head; fixed on evaluation half; NOT pooled model-case P33",
+    "patient_weighting": "ACDC/BraTS calibration mean Dice averages patient means; failures remain slice-level",
+    "unsupported_splits": "remain in total denominator, count as not low M_eff",
+    "isic_scope": "image-level analysis; patient overlap exists; not patient-disjoint",
+    "hippocampus_scope": "central 2D-slice Dice, one slice per volume; splitting and resampling by volume; subject mapping unavailable; not established patient-disjoint",
+    "mask_align_difference": "exact minus nearest gap on one shared set of 2000 seed-0 draws; ACDC patients, other tasks images; recipe-specific 0.30 floors",
+    "per_rater_pools": "GT-specific pool: floor applied under each reference; fixed pool: bundles retained under the consensus; 2000 seed-0 image draws shared by all references",
+    "medical_delta": "mean r between an encoder's four heads and all retained primary heads, minus the primary cross-bundle mean; 2000 seed-0 image draws",
+    "amos_bootstrap": "Pearson: Python random.Random(20260726), 2000 shared volume draws, CT then MRI; P33 effective size and failure metrics: numpy default_rng(0), 2000 volume draws, pooled P33 fixed, support rechecked"
+  },
+  "panels": [
+    {
+      "key": "primary/kvasir",
+      "pack": "scores.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "primary/acdc_lv",
+      "pack": "scores.npz",
+      "task": "acdc_lv",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 977,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 42988
+    },
+    {
+      "key": "primary/brats_wt",
+      "pack": "scores.npz",
+      "task": "brats_wt",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 3365,
+      "n_resampling_units": 146,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 148060
+    },
+    {
+      "key": "primary/riga_cup",
+      "pack": "scores.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "primary/riga_disc",
+      "pack": "scores.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "cross_checkpoint/kvasir",
+      "pack": "scores.npz",
+      "task": "kvasir",
+      "n_traces": 24,
+      "n_bundles": 6,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 2880
+    },
+    {
+      "key": "cross_checkpoint/acdc_lv",
+      "pack": "scores.npz",
+      "task": "acdc_lv",
+      "n_traces": 24,
+      "n_bundles": 6,
+      "n_cases": 977,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 23448
+    },
+    {
+      "key": "cross_checkpoint/brats_wt",
+      "pack": "scores.npz",
+      "task": "brats_wt",
+      "n_traces": 24,
+      "n_bundles": 6,
+      "n_cases": 3365,
+      "n_resampling_units": 146,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 80760
+    },
+    {
+      "key": "cross_checkpoint/riga_cup",
+      "pack": "scores.npz",
+      "task": "riga_cup",
+      "n_traces": 24,
+      "n_bundles": 6,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 2280
+    },
+    {
+      "key": "cross_checkpoint/riga_disc",
+      "pack": "scores.npz",
+      "task": "riga_disc",
+      "n_traces": 24,
+      "n_bundles": 6,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 2280
+    },
+    {
+      "key": "heldout/isic2018",
+      "pack": "scores.npz",
+      "task": "isic2018",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 1000,
+      "n_resampling_units": 1000,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 44000
+    },
+    {
+      "key": "heldout/msd_hippocampus",
+      "pack": "scores.npz",
+      "task": "msd_hippocampus",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 52,
+      "n_resampling_units": 52,
+      "resampling_unit": "volume (patient mapping unavailable)",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 2288
+    },
+    {
+      "key": "unet_skip/kvasir",
+      "pack": "controls.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "unet_skip/acdc_lv",
+      "pack": "controls.npz",
+      "task": "acdc_lv",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 977,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 42988
+    },
+    {
+      "key": "unet_skip/riga_cup",
+      "pack": "controls.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "unet_skip/riga_disc",
+      "pack": "controls.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "ft/lr1e-4/kvasir",
+      "pack": "controls.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "ft/lr1e-4/riga_cup",
+      "pack": "controls.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "ft/lr1e-5/kvasir",
+      "pack": "controls.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "ft/lr1e-5/riga_cup",
+      "pack": "controls.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "random_init/acdc_lv",
+      "pack": "controls.npz",
+      "task": "acdc_lv",
+      "n_traces": 16,
+      "n_bundles": 2,
+      "n_cases": 977,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "folds": [],
+      "n_score_values": 15632
+    },
+    {
+      "key": "random_init/riga_cup",
+      "pack": "controls.npz",
+      "task": "riga_cup",
+      "n_traces": 16,
+      "n_bundles": 2,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "folds": [],
+      "n_score_values": 1520
+    },
+    {
+      "key": "nnunet/riga_cup_2d",
+      "pack": "controls.npz",
+      "task": "riga_cup",
+      "n_traces": 10,
+      "n_bundles": 1,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        13,
+        37
+      ],
+      "folds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "n_score_values": 950
+    },
+    {
+      "key": "nnunet/acdc_3d",
+      "pack": "controls.npz",
+      "task": "acdc_lv",
+      "n_traces": 10,
+      "n_bundles": 1,
+      "n_cases": 100,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "seeds": [
+        13,
+        37
+      ],
+      "folds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "n_score_values": 1000
+    },
+    {
+      "key": "mask_align/kvasir",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "mask_align/acdc_lv",
+      "pack": "extensions.npz",
+      "task": "acdc_lv",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 977,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 42988
+    },
+    {
+      "key": "mask_align/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "mask_align/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180
+    },
+    {
+      "key": "kvasir_grouped/primary",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "kvasir_grouped/cross_checkpoint",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 24,
+      "n_bundles": 6,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 2880
+    },
+    {
+      "key": "kvasir_grouped/unet_skip",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "kvasir_grouped/ft/lr1e-4",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "kvasir_grouped/ft/lr1e-5",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 5280
+    },
+    {
+      "key": "medical/kvasir",
+      "pack": "extensions.npz",
+      "task": "kvasir",
+      "n_traces": 12,
+      "n_bundles": 3,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 1440
+    },
+    {
+      "key": "medical/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 12,
+      "n_bundles": 3,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 1140
+    },
+    {
+      "key": "medical/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 12,
+      "n_bundles": 3,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 1140
+    },
+    {
+      "key": "per_rater/rater_1/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_1"
+    },
+    {
+      "key": "per_rater/rater_2/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_2"
+    },
+    {
+      "key": "per_rater/rater_3/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_3"
+    },
+    {
+      "key": "per_rater/rater_4/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_4"
+    },
+    {
+      "key": "per_rater/rater_5/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_5"
+    },
+    {
+      "key": "per_rater/rater_6/riga_cup",
+      "pack": "extensions.npz",
+      "task": "riga_cup",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_6"
+    },
+    {
+      "key": "per_rater/rater_1/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_1"
+    },
+    {
+      "key": "per_rater/rater_2/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_2"
+    },
+    {
+      "key": "per_rater/rater_3/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_3"
+    },
+    {
+      "key": "per_rater/rater_4/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_4"
+    },
+    {
+      "key": "per_rater/rater_5/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_5"
+    },
+    {
+      "key": "per_rater/rater_6/riga_disc",
+      "pack": "extensions.npz",
+      "task": "riga_disc",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 4180,
+      "reference": "rater_6"
+    },
+    {
+      "key": "amos/ct",
+      "pack": "extensions.npz",
+      "task": "amos22_ct",
+      "n_traces": 3,
+      "n_systems": 2,
+      "n_cases": 60,
+      "n_organs": 13,
+      "n_resampling_units": 60,
+      "resampling_unit": "volume",
+      "n_score_values": 180,
+      "n_organ_cells": 2340,
+      "n_undefined_organ_cells": 24
+    },
+    {
+      "key": "amos/mri",
+      "pack": "extensions.npz",
+      "task": "amos22_mri",
+      "n_traces": 3,
+      "n_systems": 2,
+      "n_cases": 60,
+      "n_organs": 13,
+      "n_resampling_units": 60,
+      "resampling_unit": "volume",
+      "n_score_values": 180,
+      "n_organ_cells": 2340,
+      "n_undefined_organ_cells": 18
+    },
+    {
+      "key": "heldout/msd_spleen",
+      "pack": "extensions.npz",
+      "task": "msd_spleen",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 8,
+      "n_resampling_units": 8,
+      "resampling_unit": "volume",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 352
+    },
+    {
+      "key": "heldout/msd_heart",
+      "pack": "extensions.npz",
+      "task": "msd_heart",
+      "n_traces": 44,
+      "n_bundles": 11,
+      "n_cases": 4,
+      "n_resampling_units": 4,
+      "resampling_unit": "volume",
+      "seeds": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "folds": [],
+      "n_score_values": 176
+    },
+    {
+      "key": "pixel_overlap/kvasir",
+      "pack": "pixel_overlap.npz",
+      "task": "kvasir",
+      "n_traces": 946,
+      "n_pairs": 946,
+      "n_heads": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "n_score_values": 340560
+    },
+    {
+      "key": "pixel_overlap/acdc_lv",
+      "pack": "pixel_overlap.npz",
+      "task": "acdc_lv",
+      "n_traces": 780,
+      "n_pairs": 780,
+      "n_heads": 40,
+      "n_bundles": 10,
+      "n_cases": 977,
+      "n_resampling_units": 50,
+      "resampling_unit": "patient",
+      "n_score_values": 2286180
+    },
+    {
+      "key": "pixel_overlap/riga_cup",
+      "pack": "pixel_overlap.npz",
+      "task": "riga_cup",
+      "n_traces": 946,
+      "n_pairs": 946,
+      "n_heads": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "n_score_values": 269610
+    },
+    {
+      "key": "pixel_overlap/riga_disc",
+      "pack": "pixel_overlap.npz",
+      "task": "riga_disc",
+      "n_traces": 946,
+      "n_pairs": 946,
+      "n_heads": 44,
+      "n_bundles": 11,
+      "n_cases": 95,
+      "n_resampling_units": 95,
+      "resampling_unit": "image",
+      "n_score_values": 269610
+    },
+    {
+      "key": "pixel_overlap/kvasir_grouped",
+      "pack": "pixel_overlap.npz",
+      "task": "kvasir",
+      "n_traces": 946,
+      "n_pairs": 946,
+      "n_heads": 44,
+      "n_bundles": 11,
+      "n_cases": 120,
+      "n_resampling_units": 120,
+      "resampling_unit": "image",
+      "n_score_values": 340560
+    }
+  ],
+  "excluded": [
+    "Phikon-derived values, including values that pool Phikon with other encoders (Owkin licence)",
+    "raw images, masks, pixel predictions, feature caches, model weights and checkpoints"
+  ],
+  "licensing": "Derived data retain applicable upstream dataset/model terms, listed per panel in data/README.md; no new blanket data licence is assigned."
+}

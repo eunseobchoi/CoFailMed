@@ -1,0 +1,54 @@
+table,split,analysis,K,n_members,within,cross,gap,gap_ci95_low,gap_ci95_high,gap_n_valid,n_cases,n_test_images_shared_by_splits,bootstrap,bootstrap_seed,bootstrap_unit,recipe,K_frozen,kept_ft,kept_frozen,frozen_gap,gap_difference,frozen_gap_n_valid,frozen_gap_ci95_low,frozen_gap_ci95_high,gap_difference_n_valid,gap_difference_ci95_low,gap_difference_ci95_high,excluded_member,bundle,frozen_mean_dice,ft_mean_dice,ft_minus_frozen
+C.5,official,primary,11,44,0.939807979922469,0.674845241824601,0.26496273809786797,0.2170760042739632,0.3165525830175756,2000,120,12,2000,0,image,,,,,,,,,,,,,,,,,
+C.5,official,distinct_checkpoint,17,68,0.735955861572096,0.6501632903714545,0.08579257120064154,0.0467869263752035,0.12601441392987486,2000,120,12,2000,0,image,,,,,,,,,,,,,,,,,
+C.5,official,unet_skip,11,44,0.8513827925298781,0.6930189249249301,0.15836386760494803,0.11545995129512693,0.2077668217654347,2000,120,12,2000,0,image,,,,,,,,,,,,,,,,,
+C.5,content_group,primary,11,44,0.9332229443034539,0.6099084604769324,0.3233144838265215,0.2567504764816527,0.4034484609427919,2000,120,12,2000,0,image,,,,,,,,,,,,,,,,,
+C.5,content_group,distinct_checkpoint,17,68,0.7109903440101667,0.5943729133782382,0.11661743063192853,0.06631376492327308,0.16898371536865905,2000,120,12,2000,0,image,,,,,,,,,,,,,,,,,
+C.5,content_group,unet_skip,11,44,0.8754874608742552,0.7027854487698094,0.1727020121044458,0.10771459504062324,0.2510789874347363,2000,120,12,2000,0,image,,,,,,,,,,,,,,,,,
+G.2/G.3,content_group,fine_tuning,11,44,0.7759168777080286,0.6007801882040005,0.17513668950402816,0.11435626382136672,0.2501921009790916,2000,120,,2000,0,image,ft_lr1e-4,11,biomedclip;clip_vitb16;clip_vitl14;convnext_tiny;deit_vitb16;dinov2_vitb14;dinov2_vits14;efficientnet_b0;mae_vitb16;resnet18;resnet50,biomedclip;clip_vitb16;clip_vitl14;convnext_tiny;deit_vitb16;dinov2_vitb14;dinov2_vits14;efficientnet_b0;mae_vitb16;resnet18;resnet50,0.3233144838265215,-0.14817779432249334,2000,0.2567504764816527,0.4034484609427919,2000,-0.22284584059165172,-0.07075950628477282,,,,,
+G.2 text,content_group,fine_tuning_excluding_collapsed_head,11,43,0.8040559134066908,0.6272572875873168,0.176798625819374,0.1137018871766496,0.25450546242392913,2000,,,2000,0,image,ft_lr1e-4,,,,,,,,,,,,clip_vitl14/seed_42,,,,
+G.2/G.3,content_group,fine_tuning,11,44,0.8839426756730175,0.6570234267098182,0.22691924896319937,0.14151770746300887,0.32844331587753545,2000,120,,2000,0,image,ft_lr1e-5,11,biomedclip;clip_vitb16;clip_vitl14;convnext_tiny;deit_vitb16;dinov2_vitb14;dinov2_vits14;efficientnet_b0;mae_vitb16;resnet18;resnet50,biomedclip;clip_vitb16;clip_vitl14;convnext_tiny;deit_vitb16;dinov2_vitb14;dinov2_vits14;efficientnet_b0;mae_vitb16;resnet18;resnet50,0.3233144838265215,-0.09639523486332213,2000,0.2567504764816527,0.4034484609427919,2000,-0.1750627346599053,-0.0059215118209279905,,,,,
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,biomedclip,0.6421960947933257,0.784717536326727,0.1425214415334013
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,clip_vitb16,0.6493709295988083,0.6699195520977494,0.020548622498941183
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,clip_vitl14,0.6819124399951154,0.8180734458433072,0.1361610058481918
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,convnext_tiny,0.5679845932512156,0.8130945931791714,0.2451099999279558
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,deit_vitb16,0.6808319873029177,0.8563862961356306,0.17555430883271284
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,dinov2_vitb14,0.729107794863133,0.6558214009315502,-0.07328639393158287
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,dinov2_vits14,0.7288357604385964,0.5866003712563962,-0.14223538918220024
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,efficientnet_b0,0.538208148512058,0.7645946424554834,0.22638649394342536
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,mae_vitb16,0.6530273541376421,0.8480101090486322,0.19498275491099004
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,resnet18,0.35584912797257856,0.7728227985738415,0.41697367060126295
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,resnet50,0.4959511655052969,0.8132173394235256,0.3172661739182287
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,biomedclip,0.6421960947933257,0.7727473577097296,0.13055126291640384
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,clip_vitb16,0.6493709295988083,0.8591187101822169,0.2097477805834086
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,clip_vitl14,0.6819124399951154,0.8829755008934814,0.201063060898366
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,convnext_tiny,0.5679845932512156,0.7709019040769753,0.2029173108257597
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,deit_vitb16,0.6808319873029177,0.818240693266025,0.13740870596310728
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,dinov2_vitb14,0.729107794863133,0.8854269170748145,0.15631912221168143
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,dinov2_vits14,0.7288357604385964,0.8630423419880403,0.13420658154944387
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,efficientnet_b0,0.538208148512058,0.6487100227181519,0.11050187420609392
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,mae_vitb16,0.6530273541376421,0.834412915432602,0.18138556129495986
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,resnet18,0.35584912797257856,0.6568187890243015,0.3009696610517229
+G.2 text,official,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,resnet50,0.4959511655052969,0.691602015447563,0.19565084994226606
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,biomedclip,0.7170835482428326,0.82437423771045,0.10729068946761744
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,clip_vitb16,0.7182504992815666,0.8125624044383917,0.09431190515682508
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,clip_vitl14,0.7729838537129884,0.6536547864789467,-0.11932906723404169
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,convnext_tiny,0.6544194491696544,0.8420282808873693,0.1876088317177148
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,deit_vitb16,0.766085574789516,0.8583962738580617,0.09231069906854572
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,dinov2_vitb14,0.7967226002641837,0.7026309238162384,-0.09409167644794536
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,dinov2_vits14,0.776066967311878,0.658293500661182,-0.11777346665069599
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,efficientnet_b0,0.5813881540392686,0.8181689699071073,0.23678081586783872
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,mae_vitb16,0.7183027839434847,0.8742828589703713,0.1559800750268866
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,resnet18,0.4394557530738287,0.811784948595591,0.3723291955217623
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-4,,,,,,,,,,,,,resnet50,0.551682734387335,0.8439978971740544,0.29231516278671943
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,biomedclip,0.7170835482428326,0.8123925151205545,0.09530896687772195
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,clip_vitb16,0.7182504992815666,0.8732691084114511,0.15501860912988452
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,clip_vitl14,0.7729838537129884,0.8920396977821984,0.11905584406920999
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,convnext_tiny,0.6544194491696544,0.8153201709116177,0.16090072174196324
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,deit_vitb16,0.766085574789516,0.8425393294347142,0.07645375464519821
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,dinov2_vitb14,0.7967226002641837,0.899145409025,0.10242280876081622
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,dinov2_vits14,0.776066967311878,0.8906907669459654,0.11462379963408742
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,efficientnet_b0,0.5813881540392686,0.7098168017471854,0.12842864770791684
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,mae_vitb16,0.7183027839434847,0.8605202121326857,0.14221742818920102
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,resnet18,0.4394557530738287,0.7152439898059881,0.2757882367321594
+G.2 text,content_group,bundle_dice,,,,,,,,,,,,,,ft_lr1e-5,,,,,,,,,,,,,resnet50,0.551682734387335,0.7520587821569075,0.20037604776957252

@@ -1,0 +1,57 @@
+{
+ "biomedclip": {
+  "repository": "microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224",
+  "revision": "9f341de24bfb00180f1b847274256e9b65a3a32e",
+  "fp32_state_sha256": "bbddd91e91607ec8ba96075cb6b1227b1f38a63ffaf9f3a6a4e5abcfdbcdcc02"
+ },
+ "clip_vitb16": {
+  "repository": "timm/vit_base_patch16_clip_224.openai",
+  "revision": "977e3dd0ec55ab8da155f2fbeb6b5f54948b6e3d",
+  "fp32_state_sha256": "84eeb6006c00b84663c5fdffe65c4a82b20d04e5011304d7fd9ca7ab7f4666fc"
+ },
+ "clip_vitl14": {
+  "repository": "timm/vit_large_patch14_clip_224.openai",
+  "revision": "18d0535469bb561bf468d76c1d73aa35156c922b",
+  "fp32_state_sha256": "423a0e811f3014b4608baa23c02c7c5cdfc46a6a0b06fd3bd234c2274e8ef3aa"
+ },
+ "convnext_tiny": {
+  "repository": "pytorch/vision",
+  "revision": "7af698794eded568735f9519593603c1ec889eba",
+  "fp32_state_sha256": "685584b4b994b963c94c64f72294158e10c8e8c490cd4363d5ce99a8daa52acc"
+ },
+ "deit_vitb16": {
+  "repository": "timm/deit_base_patch16_224.fb_in1k",
+  "revision": "b78cc5532a69df6bcad9c3a8d76653fd20b31ac6",
+  "fp32_state_sha256": "909cb5aae680b8a7913fe5a8bcce704686616e38c5980fcd1fbd15700b08a58e"
+ },
+ "dinov2_vitb14": {
+  "repository": "facebookresearch/dinov2",
+  "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "fp32_state_sha256": "75ce7264eec393e9545bc010a3a16552730e68e4e3e81056b555414bc7fcf6dc"
+ },
+ "dinov2_vits14": {
+  "repository": "facebookresearch/dinov2",
+  "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "fp32_state_sha256": "d277398f92854670d7e97d6a1081b938aa3183de0745f1d8e2c730eaee54f7f0"
+ },
+ "efficientnet_b0": {
+  "repository": "pytorch/vision",
+  "revision": "7af698794eded568735f9519593603c1ec889eba",
+  "fp32_state_sha256": "646512bdb083973956dc9e97a49e80474846a425cd5fc8ad4765235fdbe8c440"
+ },
+ "mae_vitb16": {
+  "repository": "timm/vit_base_patch16_224.mae",
+  "revision": "a64dffd137c0cc3b09d9a1f55fa70fbddd3bf53a",
+  "fp32_state_sha256": "26e8e213c68bb8340c0322a822b1fcf289df66cfb3c55c1602f03eb9eae497d4"
+ },
+ "resnet18": {
+  "repository": "pytorch/vision",
+  "revision": "7af698794eded568735f9519593603c1ec889eba",
+  "fp32_state_sha256": "fbbc08d00f4793d9b39ef727be88cf7347a355b2d41e8a97354882817a97a342"
+ },
+ "resnet50": {
+  "repository": "pytorch/vision",
+  "revision": "7af698794eded568735f9519593603c1ec889eba",
+  "fp32_state_sha256": "1c7ce508fa196f1b630d7afefd939a4362ea2e743b13ec795ad25d09a943030b"
+ }
+}

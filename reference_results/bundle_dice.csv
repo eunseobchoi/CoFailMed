@@ -1,0 +1,100 @@
+table,task,recipe,bundle,mean_dice,passes_floor
+C.1,kvasir,frozen,biomedclip,0.6421960947933257,True
+C.1,kvasir,frozen,clip_vitb16,0.6493709295988083,True
+C.1,kvasir,frozen,clip_vitl14,0.6819124399951154,True
+C.1,kvasir,frozen,convnext_tiny,0.5679845932512156,True
+C.1,kvasir,frozen,deit_vitb16,0.6808319873029177,True
+C.1,kvasir,frozen,dinov2_vitb14,0.729107794863133,True
+C.1,kvasir,frozen,dinov2_vits14,0.7288357604385964,True
+C.1,kvasir,frozen,efficientnet_b0,0.538208148512058,True
+C.1,kvasir,frozen,mae_vitb16,0.6530273541376421,True
+C.1,kvasir,frozen,resnet18,0.35584912797257856,True
+C.1,kvasir,frozen,resnet50,0.4959511655052969,True
+C.1,acdc_lv,frozen,biomedclip,0.6982333703535422,True
+C.1,acdc_lv,frozen,clip_vitb16,0.5752959321210106,True
+C.1,acdc_lv,frozen,clip_vitl14,0.6620992311393745,True
+C.1,acdc_lv,frozen,convnext_tiny,0.4499208424174219,True
+C.1,acdc_lv,frozen,deit_vitb16,0.6627763331851788,True
+C.1,acdc_lv,frozen,dinov2_vitb14,0.7050058513274702,True
+C.1,acdc_lv,frozen,dinov2_vits14,0.6857088942231707,True
+C.1,acdc_lv,frozen,efficientnet_b0,0.3823686312015029,True
+C.1,acdc_lv,frozen,mae_vitb16,0.6715988126253812,True
+C.1,acdc_lv,frozen,resnet18,0.263143263382841,False
+C.1,acdc_lv,frozen,resnet50,0.367404694830107,True
+C.1,brats_wt,frozen,biomedclip,0.6932092435262547,True
+C.1,brats_wt,frozen,clip_vitb16,0.6454688218790421,True
+C.1,brats_wt,frozen,clip_vitl14,0.6896131822758036,True
+C.1,brats_wt,frozen,convnext_tiny,0.48879162154423716,True
+C.1,brats_wt,frozen,deit_vitb16,0.6859474779111348,True
+C.1,brats_wt,frozen,dinov2_vitb14,0.7364786134861696,True
+C.1,brats_wt,frozen,dinov2_vits14,0.710821785601355,True
+C.1,brats_wt,frozen,efficientnet_b0,0.41952342862631076,True
+C.1,brats_wt,frozen,mae_vitb16,0.7303891112945505,True
+C.1,brats_wt,frozen,resnet18,0.2961966157125508,False
+C.1,brats_wt,frozen,resnet50,0.4420797370746109,True
+C.1,riga_cup,frozen,biomedclip,0.6995443010604695,True
+C.1,riga_cup,frozen,clip_vitb16,0.49893600075799777,True
+C.1,riga_cup,frozen,clip_vitl14,0.6457161857403423,True
+C.1,riga_cup,frozen,convnext_tiny,0.45911288692272806,True
+C.1,riga_cup,frozen,deit_vitb16,0.7130798856776795,True
+C.1,riga_cup,frozen,dinov2_vitb14,0.6981379629750001,True
+C.1,riga_cup,frozen,dinov2_vits14,0.5924171703524496,True
+C.1,riga_cup,frozen,efficientnet_b0,0.5660521655671275,True
+C.1,riga_cup,frozen,mae_vitb16,0.6092737910089597,True
+C.1,riga_cup,frozen,resnet18,0.3042496935923976,True
+C.1,riga_cup,frozen,resnet50,0.3906623050019047,True
+C.1,riga_disc,frozen,biomedclip,0.9325218040692179,True
+C.1,riga_disc,frozen,clip_vitb16,0.8844418827640382,True
+C.1,riga_disc,frozen,clip_vitl14,0.8992131675544538,True
+C.1,riga_disc,frozen,convnext_tiny,0.7825599591982992,True
+C.1,riga_disc,frozen,deit_vitb16,0.90514568168866,True
+C.1,riga_disc,frozen,dinov2_vitb14,0.9197034944044916,True
+C.1,riga_disc,frozen,dinov2_vits14,0.9107062655059914,True
+C.1,riga_disc,frozen,efficientnet_b0,0.8399062709588754,True
+C.1,riga_disc,frozen,mae_vitb16,0.8692883444459815,True
+C.1,riga_disc,frozen,resnet18,0.72916135493862,True
+C.1,riga_disc,frozen,resnet50,0.7892505543404504,True
+G.2 text,kvasir,ft_lr1e-4,biomedclip,0.784717536326727,True
+G.2 text,kvasir,ft_lr1e-4,clip_vitb16,0.6699195520977494,True
+G.2 text,kvasir,ft_lr1e-4,clip_vitl14,0.8180734458433072,True
+G.2 text,kvasir,ft_lr1e-4,convnext_tiny,0.8130945931791714,True
+G.2 text,kvasir,ft_lr1e-4,deit_vitb16,0.8563862961356306,True
+G.2 text,kvasir,ft_lr1e-4,dinov2_vitb14,0.6558214009315502,True
+G.2 text,kvasir,ft_lr1e-4,dinov2_vits14,0.5866003712563962,True
+G.2 text,kvasir,ft_lr1e-4,efficientnet_b0,0.7645946424554834,True
+G.2 text,kvasir,ft_lr1e-4,mae_vitb16,0.8480101090486322,True
+G.2 text,kvasir,ft_lr1e-4,resnet18,0.7728227985738415,True
+G.2 text,kvasir,ft_lr1e-4,resnet50,0.8132173394235256,True
+G.2 text,kvasir,ft_lr1e-5,biomedclip,0.7727473577097296,True
+G.2 text,kvasir,ft_lr1e-5,clip_vitb16,0.8591187101822169,True
+G.2 text,kvasir,ft_lr1e-5,clip_vitl14,0.8829755008934814,True
+G.2 text,kvasir,ft_lr1e-5,convnext_tiny,0.7709019040769753,True
+G.2 text,kvasir,ft_lr1e-5,deit_vitb16,0.818240693266025,True
+G.2 text,kvasir,ft_lr1e-5,dinov2_vitb14,0.8854269170748145,True
+G.2 text,kvasir,ft_lr1e-5,dinov2_vits14,0.8630423419880403,True
+G.2 text,kvasir,ft_lr1e-5,efficientnet_b0,0.6487100227181519,True
+G.2 text,kvasir,ft_lr1e-5,mae_vitb16,0.834412915432602,True
+G.2 text,kvasir,ft_lr1e-5,resnet18,0.6568187890243015,True
+G.2 text,kvasir,ft_lr1e-5,resnet50,0.691602015447563,True
+G.2 text,riga_cup,ft_lr1e-4,biomedclip,0.8125130447316093,True
+G.2 text,riga_cup,ft_lr1e-4,clip_vitb16,0.7924564591595995,True
+G.2 text,riga_cup,ft_lr1e-4,clip_vitl14,0.7887578482351629,True
+G.2 text,riga_cup,ft_lr1e-4,convnext_tiny,0.8397923556475595,True
+G.2 text,riga_cup,ft_lr1e-4,deit_vitb16,0.8387007871621557,True
+G.2 text,riga_cup,ft_lr1e-4,dinov2_vitb14,0.7883791667792878,True
+G.2 text,riga_cup,ft_lr1e-4,dinov2_vits14,0.7803982272945138,True
+G.2 text,riga_cup,ft_lr1e-4,efficientnet_b0,0.7301615131172297,True
+G.2 text,riga_cup,ft_lr1e-4,mae_vitb16,0.8073793936337652,True
+G.2 text,riga_cup,ft_lr1e-4,resnet18,0.7847274749288968,True
+G.2 text,riga_cup,ft_lr1e-4,resnet50,0.8015193445523764,True
+G.2 text,riga_cup,ft_lr1e-5,biomedclip,0.812314516401003,True
+G.2 text,riga_cup,ft_lr1e-5,clip_vitb16,0.8233670510950797,True
+G.2 text,riga_cup,ft_lr1e-5,clip_vitl14,0.8513973713877863,True
+G.2 text,riga_cup,ft_lr1e-5,convnext_tiny,0.7967105714235877,True
+G.2 text,riga_cup,ft_lr1e-5,deit_vitb16,0.7931049521783055,True
+G.2 text,riga_cup,ft_lr1e-5,dinov2_vitb14,0.8431845569862871,True
+G.2 text,riga_cup,ft_lr1e-5,dinov2_vits14,0.8253052428027584,True
+G.2 text,riga_cup,ft_lr1e-5,efficientnet_b0,0.47305168377191126,True
+G.2 text,riga_cup,ft_lr1e-5,mae_vitb16,0.7824397808590237,True
+G.2 text,riga_cup,ft_lr1e-5,resnet18,0.5995690613076936,True
+G.2 text,riga_cup,ft_lr1e-5,resnet50,0.7488587616336396,True
